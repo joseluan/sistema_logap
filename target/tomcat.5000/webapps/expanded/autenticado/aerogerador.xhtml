@@ -1,0 +1,138 @@
+<ui:composition template="/WEB-INF/templates/template_autenticado.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="conteudo">
+		<div class="row" style="margin-top: 35px;">
+			<div class="col">
+				<center>
+					<h1>Aerogerador</h1>
+				</center>
+			</div>
+		</div>
+		<h:form style="margin: 15px;">
+			<div class="row">
+				<div class="col-lg-4 col-md-6 col-sm-12">
+					<p>Cadastrar um Aerogerador</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-3 col-md-6 col-sm-12">
+					<p:outputLabel for="@next" value="Parque Eólico: " />
+					<p:selectOneMenu id="complexo_e" value="#{aerogeradorBean.id_parque}"
+						style="width:100%;">
+						<f:selectItems value="#{ parqueBean.allParques }" var="parque"
+							itemLabel="#{parque.nome}" itemValue="#{parque.id}" />
+					</p:selectOneMenu>
+				</div>
+
+				<div class="col-lg-3 col-md-6 col-sm-12">
+					<p:outputLabel for="@next" value="Nome: " />
+					<p:inputText value="#{ aerogeradorBean.aerogerador.nome }"
+						class="form-control" id="nome" maxlength="255"
+						required="true" placeholder="Nome" />
+				</div>
+
+				<div class="col-lg-3 col-md-6 col-sm-12">
+					<p:outputLabel for="@next" value="Altura da torre: " />
+					<p:inputNumber value="#{ aerogeradorBean.aerogerador.altura_torre }"
+						class="form-control" id="altura" maxlength="255" required="true"
+						placeholder="Latitude" />
+				</div>
+
+			</div>
+			<div class="row">
+				<div class="col-lg-3 col-md-6 col-sm-12">
+					<p:outputLabel for="@next" value="Modelo: " />
+					<p:inputText value="#{ aerogeradorBean.aerogerador.modelo }"
+						class="form-control" id="modelo" maxlength="255"
+						required="true" placeholder="Modelo" />
+				</div>
+				
+				<div class="col-lg-3 col-md-6 col-sm-12">
+					<p:outputLabel for="@next" value="Latitude: " />
+					<p:inputNumber value="#{ aerogeradorBean.aerogerador.latitude }"
+						class="form-control" id="latitude" maxlength="255" required="true"
+						placeholder="Latitude" />
+				</div>
+				
+				<div class="col-lg-3 col-md-6 col-sm-12">
+					<p:outputLabel for="@next" value="Longitude: " />
+					<p:inputNumber value="#{ aerogeradorBean.aerogerador.longitude }"
+						class="form-control" id="longitude" maxlength="255" required="true"
+						placeholder="Longitude" />
+				</div>
+				
+								
+			</div>
+			
+			<div class="row">								
+				
+				<div class="col-lg-6 col-md-6 col-sm-12">
+					<p:outputLabel for="@next" value="Diametro de varredura: " />
+					<p:inputNumber value="#{ aerogeradorBean.aerogerador.diametro_varredura }"
+						class="form-control" id="diametro_varredura" maxlength="255" required="true"
+						placeholder="diametro_varredura" />
+				</div>
+				
+				<div class="col-lg-6 col-md-6 col-sm-12">
+					<h:commandButton class="btn btn-lg btn-primary" id="botao"
+						style="margin-top: 10px;" action="#{ aerogeradorBean.adicionar }"
+						value="Salvar" />
+				</div>
+			
+			</div>
+		</h:form>
+		<h:panelGroup id="lista_complexo_eolico">
+			<h:form>
+				<table class="table table-dark table-hover">
+					<thead>
+						<th>Nome do complexo</th>
+						<th>Nome do Parque</th>
+						<th>Modelo</th>
+						<th>Altura da torre</th>
+						<th>Diametro de varredura</th>
+						<th>Latitude</th>
+						<th>Longitude</th>
+						<th>AÇÃO</th>
+					</thead>
+					<tbody>
+						<ui:repeat var="aerogerador" value="#{ aerogeradorBean.aerogeradores}">
+							<tr>
+								<td>#{aerogerador.parque.complexo.nome}</td>
+								<td>#{aerogerador.parque.nome}</td>
+								<td>#{aerogerador.modelo}</td>
+								<td>#{aerogerador.altura_torre}</td>
+								<td>#{aerogerador.diametro_varredura}</td>
+								<td>#{aerogerador.latitude}</td>
+								<td>#{aerogerador.longitude}</td>
+								<td><h:commandButton value="Remover"
+										title="Apagar Aerogerador" class="btn btn-danger"
+										action="#{ aerogeradorBean.retirar(aerogerador) }" ajax="false" /></td>
+							</tr>
+						</ui:repeat>
+					</tbody>
+				</table>
+			</h:form>
+		</h:panelGroup>
+
+
+		<p:dialog header="Editar Tarefa" widgetVar="ModalTarefa" modal="true"
+			height="330" id="dialogo">
+			<center>
+				<h:form>
+					<p:inputText value="#{ tarefaBean.tarefaSelecionada.descricao }"
+						class="form-control" id="descricao" maxlength="255"
+						required="true" placeholder="O que precisa ser feito?"
+						onkeyup="if((event.keyCode==13)||(window.event.keyCode==13)){document.getElementById('botao').click();}" />
+					<br />
+					<h:commandButton class="btn btn-primary" id="botao_editar"
+						action="#{ tarefaBean.atualizar }" value="Alterar" />
+				</h:form>
+			</center>
+		</p:dialog>
+	</ui:define>
+</ui:composition>

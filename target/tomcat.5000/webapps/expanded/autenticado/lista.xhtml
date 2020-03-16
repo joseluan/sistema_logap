@@ -1,0 +1,76 @@
+<ui:composition template="/WEB-INF/templates/template_autenticado.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="conteudo">
+		<div class="row" style="margin-top: 35px;">
+			<div class="col">
+				<center>
+					<h1>Algoritmo de Lista</h1>
+				</center>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-4 col-md-6 col-sm-12">
+				<p>Input</p>
+			</div>
+		</div>
+		<div class="row">
+			<h:form style="margin: 15px;">
+				<div class="col-lg-6 col-md-6 col-sm-12">
+					<p:outputLabel for="@next" value="Número:" />
+					<p:inputNumber value="#{ listaBean.num }" class="form-control"
+						id="num" maxlength="255" required="true"
+						placeholder="Número a adicionar na lista" />
+				</div>
+				<div class="col-lg-4 col-md-12 col-sm-12">
+					<h:commandButton class="btn btn-primary" id="botao"
+						style="margin-top: 10px;" action="#{ listaBean.add }"
+						value="Adicionar" />
+				</div>
+			</h:form>
+
+			<h:form style="margin: 15px;">
+				<div class="col-lg-6 col-md-6 col-sm-12">
+					<p:outputLabel for="@next" value="Número verificador:" />
+					<p:inputNumber value="#{ listaBean.sum }" class="form-control"
+						id="sum" maxlength="255" required="true"
+						placeholder="Número verificador" />
+					<h:commandButton class="btn btn-primary" id="botao"
+						style="margin-top: 10px;" action="#{ listaBean.isSum }"
+						value="Verificar" />
+				</div>
+			</h:form>
+		</div>		
+
+		<h:panelGroup id="lista_numeros">
+			<h:form>
+				<ul>
+					<ui:repeat var="num" value="#{ listaBean.lista }">
+						<li>#{ num }</li>
+					</ui:repeat>
+				</ul>
+			</h:form>
+		</h:panelGroup>
+
+
+		<p:dialog header="Editar Tarefa" widgetVar="ModalTarefa" modal="true"
+			height="330" id="dialogo">
+			<center>
+				<h:form>
+					<p:inputText value="#{ tarefaBean.tarefaSelecionada.descricao }"
+						class="form-control" id="descricao" maxlength="255"
+						required="true" placeholder="O que precisa ser feito?"
+						onkeyup="if((event.keyCode==13)||(window.event.keyCode==13)){document.getElementById('botao').click();}" />
+					<br />
+					<h:commandButton class="btn btn-primary" id="botao_editar"
+						action="#{ tarefaBean.atualizar }" value="Alterar" />
+				</h:form>
+			</center>
+		</p:dialog>
+	</ui:define>
+</ui:composition>

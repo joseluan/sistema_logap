@@ -1,0 +1,96 @@
+<ui:composition template="/WEB-INF/templates/template_autenticado.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="conteudo">
+		<div class="row" style="margin-top: 35px;">
+			<div class="col">
+				<center>
+					<h1>Complexos Eólicos</h1>
+				</center>
+			</div>
+		</div>
+		<h:form style="margin: 15px;">
+			<div class="row">
+				<div class="col-lg-4 col-md-6 col-sm-12">
+					<p>Cadastrar um Complexo Eólico</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-4 col-md-6 col-sm-12">
+					<p:inputText value="#{ complexoBean.complexo.nome }"
+						class="form-control" id="nome" maxlength="255" required="true"
+						placeholder="Nome" />
+				</div>
+
+				<div class="col-lg-4 col-md-6 col-sm-12">
+					<p:inputText value="#{ complexoBean.complexo.identificador }"
+						class="form-control" id="identificador" maxlength="255"
+						required="true" placeholder="Identificador" />
+				</div>
+
+				<div class="col-lg-4 col-md-6 col-sm-12">
+					<p:outputLabel for="@next" value="UF:" />
+					<p:selectOneMenu id="console" value="#{complexoBean.complexo.uf}"
+						style="width:225px; margin-left: 15px">
+						<f:selectItem itemLabel="Rio Grande do Norte" itemValue="RN" />
+						<f:selectItem itemLabel="Pernambuco" itemValue="PE" />
+						<f:selectItem itemLabel="Paraíba" itemValue="PB" />
+						<f:selectItem itemLabel="Ceará" itemValue="CE" />
+					</p:selectOneMenu>
+				</div>
+
+			</div>
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12">
+					<h:commandButton class="btn btn-primary" id="botao"
+						style="margin-top: 10px;" action="#{ complexoBean.adicionar }"
+						value="Salvar" />
+				</div>
+			</div>
+		</h:form>
+		<h:panelGroup id="lista_complexo_eolico">
+			<h:form>
+				<table class="table table-dark table-hover">
+					<thead>
+						<th>Identificador</th>
+						<th>Nome</th>
+						<th>UF</th>
+						<th>AÇÃO</th>
+					</thead>
+					<tbody>
+						<ui:repeat var="ce" value="#{ complexoBean.complexos }">
+							<tr>
+								<td>#{ce.identificador}</td>
+								<td>#{ce.nome}</td>
+								<td>#{ce.uf}</td>
+								<td><h:commandButton value="Remover"
+										title="Apagar Complexo Eólico" class="btn btn-danger"
+										action="#{ complexoBean.retirar(ce) }" ajax="false" /></td>
+							</tr>
+						</ui:repeat>
+					</tbody>
+				</table>
+			</h:form>
+		</h:panelGroup>
+
+
+		<p:dialog header="Editar Tarefa" widgetVar="ModalTarefa" modal="true"
+			height="330" id="dialogo">
+			<center>
+				<h:form>
+					<p:inputText value="#{ tarefaBean.tarefaSelecionada.descricao }"
+						class="form-control" id="descricao" maxlength="255"
+						required="true" placeholder="O que precisa ser feito?"
+						onkeyup="if((event.keyCode==13)||(window.event.keyCode==13)){document.getElementById('botao').click();}" />
+					<br />
+					<h:commandButton class="btn btn-primary" id="botao_editar"
+						action="#{ tarefaBean.atualizar }" value="Alterar" />
+				</h:form>
+			</center>
+		</p:dialog>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="author" content="José Luan Silva do Nascimento" />
+
+	<title>Ventania</title>
+	
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+		crossorigin="anonymous" />
+	<style>
+	body {
+		background-color: #dfdfdf;
+	}
+	</style>
+
+	<c:set var="ctx" value="sistema" />
+	<link rel="shortcut icon" href="/arquivos/img/icone.jpg" />
+
+	<link rel="stylesheet" type="text/css"
+		href="/arquivos/css/bootstrap.min.css" media="all" />
+	<link rel="stylesheet" type="text/css"
+		href="/arquivos/css/principal.css" media="all" />
+
+	<script src="/arquivos/js/jquery.min.js"></script>
+	<script src="/arquivos/js/bootstrap.min.js"></script>
+
+	<!-- Visualizador de códigos -->
+	<link rel="stylesheet"
+		href="/arquivos/highlight/styles/default.css"></link>
+	<script src="/arquivos/highlight/highlight.pack.js"></script>
+</h:head>
+<h:body>
+	<h:form>
+		<p:growl id="messages" />
+
+		<p:menubar>
+			<p:menuitem value="Inicio" url="/autenticado/mural.xhtml" />
+			<p:menuitem value="Complexo Eólico" url="/autenticado/complexo.xhtml" />
+			<p:menuitem value="Parque Eólico" url="/autenticado/parque.xhtml" />
+			<p:menuitem value="Aerogerador" url="/autenticado/aerogerador.xhtml" />
+			<p:menuitem value="Lista" url="/autenticado/lista.xhtml" />
+			<p:menuitem value="Sair" action="#{ loginBean.logoff }" />
+		</p:menubar>
+		<p:tooltip />
+	</h:form>
+	<div class="container">
+		<ui:insert name="conteudo">
+                Espaço para o conteúdo da tela
+            </ui:insert>
+	</div>
+</h:body>
+</html>
